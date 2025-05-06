@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script>
+      const headingElement = document.createElement("h1");
+      headingElement.innerHTML = "Hello from Vanilla JS";
+      // <h1>Hello from Vanilla JS</h1>
+
+      const rootElem = document.getElementById("root");
+      rootElem.append(headingElement);
+    </script>
+  </body>
+</html>
