@@ -1,16 +1,34 @@
 import React from "react";
 import { Button, Form, Input, message } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { LoginUser } from "../../apicalls/user";
 
 function Login() {
+  const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
 
-  const onFinish = (values) => {
-    console.log("Called", values);
-    messageApi.open({
-      type: "success",
-      content: "This looks fine. Logging in this user...",
-    });
+  const onFinish = async (values) => {
+    try {
+      const response = await LoginUser(values);
+      if (response.success) {
+        messageApi.open({
+          type: "success",
+          content: "Login Successful",
+        });
+        navigate("/");
+        localStorage.setItem("token", response.data);
+      } else {
+        messageApi.open({
+          type: "error",
+          content: response.message,
+        });
+      }
+    } catch(err) {
+      messageApi.open({
+        type: "error",
+        content: err,
+      });
+    }
   };
 
   return (

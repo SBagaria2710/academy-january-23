@@ -1,16 +1,33 @@
 import React from "react";
 import { Button, Form, Input, Radio, message } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { RegisterUser } from "../../apicalls/user";
 
-function Login() {
+function Register() {
+  const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
 
-  const onFinish = (values) => {
-    console.log("Called", values);
-    messageApi.open({
-      type: "error",
-      content: "This looks fine. Registering this user...",
-    });
+  const onFinish = async (values) => {
+    try {
+      const response = await RegisterUser(values);
+      if (response.success) {
+        messageApi.open({
+          type: "success",
+          content: "Registeration Successful",
+        });
+        navigate("/login");
+      } else {
+        messageApi.open({
+          type: "error",
+          content: response.message,
+        });
+      }
+    } catch (err) {
+      messageApi.open({
+        type: "error",
+        content: err,
+      });
+    }
   };
 
   return (
@@ -73,15 +90,15 @@ function Login() {
 
               <Form.Item
                 label="Register as a Partner"
-                htmlFor="isPartner"
-                name={"isPartner"}
+                htmlFor="role"
+                name={"role"}
                 className="d-block text-center"
-                initialValue={false}
+                initialValue={"user"}
               >
                 <div style={{ display: "flex", justifyContent: "start" }}>
                   <Radio.Group name="radiogroup" className="flex-start">
-                    <Radio value={true}>Yes</Radio>
-                    <Radio value={false}>No</Radio>
+                    <Radio value={"partner"}>Yes</Radio>
+                    <Radio value={"user"}>No</Radio>
                   </Radio.Group>
                 </div>
               </Form.Item>
@@ -99,4 +116,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

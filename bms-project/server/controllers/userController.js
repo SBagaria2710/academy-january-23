@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
 const registerUser = async (req, res) => {
@@ -46,9 +47,15 @@ const loginUser = async (req, res) => {
       });
     }
 
+    // Generate JWT TOKEN
+    const token = jwt.sign({ userId: user._id }, process.env.jwt_secret, {
+      expiresIn: "1d"
+    });
+
     res.json({
       success: true,
-      message: "Login Successful"
+      message: "Login Successful",
+      data: token,
     });
   } catch (err) {
     console.log(err);
