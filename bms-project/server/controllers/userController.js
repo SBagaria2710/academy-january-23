@@ -11,7 +11,6 @@ const registerUser = async (req, res) => {
         message: "User Already Exists"
       });
     }
-
     const newUser = new User(req.body);
     await newUser.save();
 
@@ -66,4 +65,17 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser };
+const getCurrentUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.body.userId).select("-password");
+    res.send({
+      success: true,
+      message: "User details fetched successfully",
+      data: user
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err });
+  }
+};
+
+module.exports = { registerUser, loginUser, getCurrentUser };
