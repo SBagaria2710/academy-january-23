@@ -9,6 +9,7 @@ import store from "./redux/store";
 import Profile from "./pages/Profile";
 import Admin from "./pages/Admin";
 import Partner from "./pages/Partner";
+import Movie from "./pages/Movie";
 
 function App() {
   return (
@@ -17,6 +18,14 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route
+            path="/movies/:movieId"
+            element={
+              <ProtectedRoute>
+                <Movie />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/"
             element={

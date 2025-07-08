@@ -46,6 +46,9 @@ function ProtectedRoute({ children }) {
     {
       label: "Home",
       icon: <HomeOutlined />,
+      onClick: () => {
+        navigate("/");
+      }
     },
     {
       label: `${!!user ? user.name : ""}`,

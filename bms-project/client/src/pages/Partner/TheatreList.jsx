@@ -6,12 +6,14 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import TheatreModal from "./theatreForm";
 import TheatreDelete from "./theatreDelete";
 import { getAllTheatresByOwner } from "../../apicalls/theatre";
+import ShowModal from "./showModal";
 
 function TheatreList() {
   const { user } = useSelector((state) => state.user);
   const [theatres, setTheatres] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isShowModalOpen, setIsShowModalOpen] = useState(false);
   const [selectedTheatre, setSelectedTheatre] = useState(null);
   const [formType, setFormType] = useState("add");
   const dispatch = useDispatch();
@@ -56,7 +58,13 @@ function TheatreList() {
               <DeleteOutlined />
             </Button>
             {rowObj.isActive && (
-              <Button style={{ marginLeft: "4px" }} onClick={() => {}}>
+              <Button
+                style={{ marginLeft: "4px" }}
+                onClick={() => {
+                  setIsShowModalOpen(true);
+                  setSelectedTheatre(rowObj);
+                }}
+              >
                 Add Shows
               </Button>
             )}
@@ -67,6 +75,7 @@ function TheatreList() {
   ];
 
   const fetchAllTheatres = async () => {
+    if (!user._id) return;
     dispatch(showLoading());
     const response = await getAllTheatresByOwner(user._id);
     const allTheatres = response.data.map((theatre) => {
@@ -115,6 +124,13 @@ function TheatreList() {
           setIsDeleteModalOpen={setIsDeleteModalOpen}
           setSelectedTheatre={setSelectedTheatre}
           getData={fetchAllTheatres}
+        />
+      )}
+      {isShowModalOpen && (
+        <ShowModal
+          isShowModalOpen={isShowModalOpen}
+          selectedTheatre={selectedTheatre}
+          setIsShowModalOpen={setIsShowModalOpen}
         />
       )}
     </div>
