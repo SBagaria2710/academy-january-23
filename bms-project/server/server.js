@@ -5,6 +5,7 @@ const userRouter = require("./routes/userRoutes");
 const movieRouter = require("./routes/movieRoutes");
 const theatreRouter = require("./routes/theatreRoutes");
 const showRouter = require("./routes/showRoutes");
+const bookingRouter = require("./routes/bookingRoutes");
 
 require("dotenv").config();
 require("./config/db");
@@ -16,6 +17,7 @@ app.use("/api/users", userRouter);
 app.use("/api/movies", movieRouter);
 app.use("/api/theatres", theatreRouter);
 app.use("/api/shows", showRouter);
+app.use("/api/booking", bookingRouter);
 
 app.get("/health", (req, res) => {
   res.status(200).send("Service is healthy!");

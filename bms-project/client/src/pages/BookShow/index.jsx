@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Card, Col, Row, Button } from "antd";
 import moment from "moment";
 import StripeCheckout from "react-stripe-checkout";
+import { makePayment, bookShow } from "../../apicalls/bookings";
 
 function BookShow() {
   const { user } = useSelector((state) => state.user);
@@ -35,8 +36,6 @@ function BookShow() {
     let columns = 12; // Number of columns for seating arrangement
     let totalSeats = show.totalSeats; // Total number of seats
     let rows = Math.ceil(totalSeats / columns); // Calculating number of rows
-
-    console.log({ columns, totalSeats, rows });
     return (
       <div className="d-flex flex-column align-items-center">
         <div>
@@ -70,6 +69,10 @@ function BookShow() {
                         style={{ color: "black" }}
                         className={seatClass}
                         onClick={() => {
+                          if (show.bookedSeats.includes(seatNumber)) {
+                            return;
+                          }
+
                           // Function to handle seat selection/deselection
                           if (selectedSeats.includes(seatNumber)) {
                             setSelectedSeats(
@@ -105,7 +108,40 @@ function BookShow() {
     );
   };
 
-  const onToken = () => {};
+  const bookSeatForUser = async (transactionId) => {
+    try {
+      const response = await bookShow({
+        show: params.showId,
+        transactionId,
+        seats: selectedSeats,
+        user: user._id,
+      });
+
+      if (response.success) {
+        navigate("/profile");
+      } else {
+        console.error("Something went wrong", response.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onToken = async (token) => {
+    try {
+      const response = await makePayment({
+        token,
+        amount: selectedSeats.length * show.ticketPrice,
+      });
+
+      if (response.success) {
+        bookSeatForUser(response.data);
+        console.log(response);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -148,7 +184,7 @@ function BookShow() {
                   token={onToken}
                   billingAddress
                   amount={selectedSeats.length * show.ticketPrice}
-                  stripeKey="pk_test_51R6BX1KpJJuQX1KFGaUR8e4XFaom8yY36nNjvjC3r8uxmnfq9lCxFnQqTEXZWx0Y3uDc9k1hcX4pfqHKdWMeDSkc00BB2DyiAF"
+                  stripeKey="pk_test_51R6BX1KpJJuQX1KFrhGXZH5BQsUjz21mR7EO5qtGfe8GAosEPe1GYb0V2RP9hV7viZZdEz83EosZUbl5mahiFoOV00Ihrzwcyp"
                 >
                   <div className="max-width-600 mx-auto">
                     <Button type="primary" shape="round" size="large" block>

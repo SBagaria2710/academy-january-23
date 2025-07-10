@@ -7,7 +7,9 @@ const auth = (req, res, next) => {
 
     const verifiedToken = jwt.verify(token, process.env.jwt_secret);
 
-    req.body = {};
+    if (typeof req.body !== "object") {
+      req.body = {};
+    }
     req.body.userId = verifiedToken.userId;
 
     next();
