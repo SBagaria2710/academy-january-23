@@ -184,7 +184,7 @@ function BookShow() {
                   token={onToken}
                   billingAddress
                   amount={selectedSeats.length * show.ticketPrice}
-                  stripeKey="pk_test_51R6BX1KpJJuQX1KFrhGXZH5BQsUjz21mR7EO5qtGfe8GAosEPe1GYb0V2RP9hV7viZZdEz83EosZUbl5mahiFoOV00Ihrzwcyp"
+                  stripeKey="pk_test_51R6BX1KpJJuQX1KFhaSASMT6yMdyxg8K90ewP14dz506Rq39PwbeD67DOtAnRcPHT7ZaARRxgZSTYjVTnzpcGV5z00E8kEIouG"
                 >
                   <div className="max-width-600 mx-auto">
                     <Button type="primary" shape="round" size="large" block>

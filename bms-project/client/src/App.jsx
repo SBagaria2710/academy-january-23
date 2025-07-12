@@ -11,6 +11,8 @@ import Admin from "./pages/Admin";
 import Partner from "./pages/Partner";
 import Movie from "./pages/Movie";
 import BookShow from "./pages/BookShow";
+import Forget from "./pages/Forget";
+import Reset from "./pages/Reset";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forget" element={<Forget />} />
+          <Route path="/reset" element={<Reset />} />
           <Route
             path="/movies/:movieId"
             element={

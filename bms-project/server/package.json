@@ -18,6 +18,7 @@
     "mongodb": "^6.17.0",
     "mongoose": "^8.16.0",
     "nodemon": "^3.1.10",
-    "stripe": "^18.2.1"
+    "stripe": "^18.2.1",
+    "nodemailer": "^7.0.3"
   }
 }

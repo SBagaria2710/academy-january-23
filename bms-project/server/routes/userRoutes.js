@@ -3,6 +3,8 @@ const {
   registerUser,
   loginUser,
   getCurrentUser,
+  forgetPassword,
+  resetPassword,
 } = require("../controllers/userController");
 const authMiddleware = require("../middlewares/authMiddleware");
 
@@ -14,6 +16,8 @@ function middlewareFunction(req, res, next) {
 
 userRouter.post("/register", middlewareFunction, registerUser);
 userRouter.post("/login", loginUser);
+userRouter.patch("/forgetpassword", forgetPassword);
+userRouter.patch("/resetpassword", resetPassword);
 userRouter.get("/current-user", authMiddleware, getCurrentUser);
 
 module.exports = userRouter;
