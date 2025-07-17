@@ -30,7 +30,7 @@ app.use(
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", "example.com", "scaler.com"], // Allow scripts from 'self', example.com, and scaler.com
       styleSrc: ["'self'", "'unsafe-inline'"], // Allow inline styles (unsafe)
-      imgSrc: ["'self'", "data:", "example.com"], // Allow images from 'self', data URLs, and example.com
+      imgSrc: ["'self'", "data:", "example.com", "m.media-amazon.com"], // Allow images from 'self', data URLs, and example.com
       connectSrc: ["'self'", "api.example.com"], // Allow connections to 'self' and api.example.com
       fontSrc: ["'self'", "fonts.gstatic.com"], // Allow fonts from 'self' and fonts.gstatic.com
       objectSrc: ["'none'"], // Disallow object, embed, and applet elements
@@ -55,7 +55,7 @@ app.use("/api/", apiLimiter);
 app.use("/api/users", userRouter); // Route for all user operations
 app.use("/api/movies", movieRouter); // Route for all movie operations
 app.use("/api/theatre", theatreRouter); // Route for all theatre operations
-app.use("/api/show", showRouter); // Route for all show operation
+app.use("/api/shows", showRouter); // Route for all show operation
 app.use("/api/booking", bookingRouter); // Route for all booking operation
 
 app.listen(8082, () => {
