@@ -28,7 +28,12 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "example.com", "scaler.com"], // Allow scripts from 'self', example.com, and scaler.com
+      scriptSrc: [
+        "'self'",
+        "example.com",
+        "scaler.com",
+        "index-IN7G7qrZ.js:433 Refused to load the script 'checkout.stripe.com",
+      ], // Allow scripts from 'self', example.com, and scaler.com
       styleSrc: ["'self'", "'unsafe-inline'"], // Allow inline styles (unsafe)
       imgSrc: ["'self'", "data:", "example.com", "m.media-amazon.com"], // Allow images from 'self', data URLs, and example.com
       connectSrc: ["'self'", "api.example.com"], // Allow connections to 'self' and api.example.com
