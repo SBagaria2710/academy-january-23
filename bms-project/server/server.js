@@ -27,15 +27,16 @@ app.use(mongoSanitize());
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: [
-        "'self'",
-        "example.com",
-        "scaler.com",
-        "checkout.stripe.com",
-      ], // Allow scripts from 'self', example.com, and scaler.com
+      defaultSrc: ["'self'", "checkout.stripe.com"],
+      scriptSrc: ["'self'", "example.com", "scaler.com", "checkout.stripe.com"], // Allow scripts from 'self', example.com, and scaler.com
       styleSrc: ["'self'", "'unsafe-inline'"], // Allow inline styles (unsafe)
-      imgSrc: ["'self'", "data:", "example.com", "m.media-amazon.com"], // Allow images from 'self', data URLs, and example.com
+      imgSrc: [
+        "'self'",
+        "data:",
+        "example.com",
+        "m.media-amazon.com",
+        "q.stripe.com",
+      ], // Allow images from 'self', data URLs, and example.com
       connectSrc: ["'self'", "api.example.com"], // Allow connections to 'self' and api.example.com
       fontSrc: ["'self'", "fonts.gstatic.com"], // Allow fonts from 'self' and fonts.gstatic.com
       objectSrc: ["'none'"], // Disallow object, embed, and applet elements
