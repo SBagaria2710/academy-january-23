@@ -19,6 +19,9 @@
     "mongoose": "^8.16.0",
     "nodemon": "^3.1.10",
     "stripe": "^18.2.1",
-    "nodemailer": "^7.0.3"
+    "nodemailer": "^7.0.3",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.1.0"
   }
 }

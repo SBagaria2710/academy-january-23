@@ -2,7 +2,7 @@ const Booking = require("../models/bookingModel");
 const Show = require("../models/showModel");
 const EmailHelper = require("../util/EmailHelper");
 const stripe = require("stripe")(
-  "sk_test_51R6BX1KpJJuQX1KFpCgu11RA4o3RfZpYB8shL2UHs9koiB4qGdJ71La0WLKTlCFpsyj2JoLML243gPFL41s9DAAl00K41ZgwCD"
+  "sk_test_51R6BX1KpJJuQX1KF7p02hefwLxDStAKh4HfBU9Xb4u1caNU31bcjwU5WarnY9xutgBN7ybnuQ9LkqrtsKmCmQrJo00FfMrIpLI"
 );
 
 const makePayment = async (req, res) => {
